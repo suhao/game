@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>蚂蚁游戏</title>
+		<link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+		<link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+	</head>
+
+<body>
+	<div class="vi">
+		<div class="sidebar">
+			<div class="header">
+				<h1 style="opacity: 1; top: 0px;">蚂蚁游戏</h1>
+			</div>
+			<div class="menu">
+				<a href="https://github.com/suhao/play.ant.sh/wiki" class="animate-init" style="opacity: 1; top: 0px;">主页</a>
+				<a href="http://play.ant.sh/long-legs/index.html" class="animate-init" style="opacity: 1; top: 0px;">大长腿</a>
+			</div>
+			<div class="location">
+				<i class="location-icon" style="opacity: 1; top: 0px;"></i>
+				<span class="location-text animate-init" style="opacity: 1; top: 0px;">Tor - China</span>
+			</div>
+			<div class="relocating">
+				Navigating to: <span class="relocate-location"></span>...
+			</div>
+		</div>
+
+		<div class="content">
+			<span class="close">close</span>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="./assets/vendors/jquery/index.js">下载</script>
+	
+	<script>
+		$(document).ready(function () {
+			var delay = 1;
+			var DELAY_STEP = 200;
+			var animationOptions = { opacity: 1, top: 0};
+
+			$('h1').animate(animationOptions).promise()
+					.pipe(animateMain)
+					.pipe(animateLocationIcon);
+
+			function animateMain() {
+				var dfd = $.Deferred();
+				var els = $('.animate-init');
+				var size = els.size();
+
+				els.each(function (index, el) {
+					delay++;
+					$(el).delay(index * DELAY_STEP)
+							.animate(animationOptions);
+					(size - 1 === index) && dfd.resolve();
+				});
+				return dfd.promise();
+			}
+
+			function animateLocationIcon() {
+				$('.location-icon').delay(delay * DELAY_STEP).animate({
+					opacity: 1,
+					top: 0
+				}).promise().done(animationQuote);
+			}
+
+			function animationQuote() {}
+		});
+	</script>
+
+</body>
+
+</html>
